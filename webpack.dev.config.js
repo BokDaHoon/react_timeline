@@ -1,18 +1,21 @@
 var webpack = require('webpack');
- 
+var path = require('path');
+
 module.exports = {
- 
+
     entry: [
+        'react-hot-loader/patch',
         './src/index.js',
-        'webpack-dev-server/client?http://0.0.0.0:4000',
-        'webpack/hot/only-dev-server'
+        'webpack-dev-server/client?http://0.0.0.0:3001',
+        'webpack/hot/only-dev-server',
+        './src/style.css'
     ],
- 
+
     output: {
         path: '/',
         filename: 'bundle.js'
     },
- 
+
     devServer: {
         hot: true,
         filename: 'bundle.js',
@@ -31,24 +34,41 @@ module.exports = {
           timings: false,
           chunks: false,
           chunkModules: false
-        } 
+        }
     },
 
-    
+
     plugins: [
         new webpack.HotModuleReplacementPlugin()
     ],
- 
+
     module: {
-        loaders: [
+        rules: [
             {
-                test: /\.js$/,
-                loaders: ['react-hot', 'babel?' + JSON.stringify({
-                    cacheDirectory: true,
-                    presets: ['es2015', 'react']
-                })],
+                test: /.js$/,
+                loader: 'babel-loader',
                 exclude: /node_modules/,
+                query: {
+                    cacheDirectory: true,
+                    presets: ['es2015', 'react'],
+                    plugins: ["react-hot-loader/babel"]
+                }
+            },
+            {
+                test: /\.css$/,
+//                loader: 'style!css-loader'
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
             }
+        ]
+    },
+
+    resolve: {
+        modules: [
+            path.join(__dirname, "src"),
+            "node_modules"
         ]
     }
 
