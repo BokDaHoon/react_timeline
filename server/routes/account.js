@@ -8,7 +8,7 @@ router.post('/singup', (req, res) => {
    res.json({ success : true });
 });
 
-router.get('/signin', (req, res) => {
+router.post('/signin', (req, res) => {
    connection.query('SELECT * FROM ACCOUNT', function(err, rows) {
 
       console.log('The solution is: ', rows);

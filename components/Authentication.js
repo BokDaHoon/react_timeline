@@ -82,7 +82,7 @@ class Authentication extends React.Component {
                   type="password"
                   className="validate"
                   onChange={this.handleChange}
-                  value={this.sate.password}
+                  value={this.state.password}
                   onKeyPress={this.handleKeyPress}/>
             </div>
          </div>
