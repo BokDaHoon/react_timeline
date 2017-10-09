@@ -1,23 +1,48 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import {AppContainer} from 'react-hot-loader';
+
+// Router
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
+
+// Container Components
+import { App, Home, Login, Register } from 'containers';
+
+// Redux
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import reducers from 'reducers';
+import thunk from 'redux-thunk';
+
+import { AppContainer } from 'react-hot-loader';
 
 const root = document.getElementById('root');
-
+const store = createStore(reducers, applyMiddleware(thunk));
 
 ReactDOM.render(
-    <AppContainer>
-    <App/>
-</AppContainer>, root);
+   <Provider store={store}>
+      <Router history={browserHistory}>
+         <Route path="/" component={App}>
+              <IndexRoute component={Home}/>
+              <Route path="home" component={Home}/>
+              <Route path="login" component={Login}/>
+              <Route path="register" component={Register}/>
+         </Route>
+      </Router>
+   </Provider>, root);
 
 
-if (module.hot) {
-    module.hot.accept('./App', () => {
-        const NextApp = require('./App').default;
-        ReactDOM.render(
-            <AppContainer>
-                <App/>
-            </AppContainer>, root);
+   if (module.hot) {
+      module.hot.accept('./containers/App', () => {
+         const NextApp = require('./containers/App').default;
+         ReactDOM.render(
+            <Router history={browserHistory}>
+              <Route path="/" component={App}>
+                 <IndexRoute component={Home}/>
+                 <Route path="home" component={Home}/>
+                 <Route path="login" component={Login}/>
+                 <Route path="register" component={Register}/>
+              </Route>
+            </Router>, root
+         );
     });
 }
