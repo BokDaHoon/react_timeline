@@ -1,48 +1,31 @@
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-// Router
-import { Router, Route, browserHistory, IndexRoute } from 'react-router';
-
-// Container Components
-import { App, Home, Login, Register } from 'containers';
-
-// Redux
+import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import reducers from 'reducers';
+import reducer from 'reducers';
 import thunk from 'redux-thunk';
 
-import { AppContainer } from 'react-hot-loader';
-
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunk));
 const root = document.getElementById('root');
-const store = createStore(reducers, applyMiddleware(thunk));
 
-ReactDOM.render(
-   <Provider store={store}>
-      <Router history={browserHistory}>
-         <Route path="/" component={App}>
-              <IndexRoute component={Home}/>
-              <Route path="home" component={Home}/>
-              <Route path="login" component={Login}/>
-              <Route path="register" component={Register}/>
-         </Route>
-      </Router>
-   </Provider>, root);
+const render = Component => {
+    ReactDOM.render(
+        <AppContainer>
+            <MuiThemeProvider>
+                <Provider store={store}>
+                    <Component />
+                </Provider>
+            </MuiThemeProvider>
+        </AppContainer>, root);
+};
 
+render(require('./containers/Root.js').default);
 
-   if (module.hot) {
-      module.hot.accept('./containers/App', () => {
-         const NextApp = require('./containers/App').default;
-         ReactDOM.render(
-            <Router history={browserHistory}>
-              <Route path="/" component={App}>
-                 <IndexRoute component={Home}/>
-                 <Route path="home" component={Home}/>
-                 <Route path="login" component={Login}/>
-                 <Route path="register" component={Register}/>
-              </Route>
-            </Router>, root
-         );
+if (module.hot) {
+    module.hot.accept('./containers/Root.js', () => {
+        const Root = require('./containers/Root.js').default;
+        render(Root);
     });
 }

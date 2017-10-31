@@ -1,0 +1,110 @@
+/* label color */
+   .input-field label {
+     color: #9e9e9e;
+   }
+   /* label focus color */
+   .input-field input[type=text]:focus + label {
+     color: #000;
+   }
+   /* label underline focus color */
+   .input-field input[type=text]:focus {
+     border-bottom: 1px solid #4374D9;
+     box-shadow: 0 1px 0 0 #4374D9;
+   }
+   /* valid color */
+   .input-field input[type=text].valid {
+     border-bottom: 1px solid #4374D9;
+     box-shadow: 0 1px 0 0 #4374D9;
+   }
+   /* invalid color */
+   .input-field input[type=text].invalid {
+     border-bottom: 1px solid #DB0000;
+     box-shadow: 0 1px 0 0 #DB0000;
+   }
+   /* label underline focus color */
+   .input-field input[type=password]:focus {
+     border-bottom: 1px solid #4374D9;
+     box-shadow: 0 1px 0 0 #4374D9;
+   }
+   /* valid color */
+   .input-field input[type=password].valid {
+     border-bottom: 1px solid #4374D9;
+     box-shadow: 0 1px 0 0 #4374D9;
+   }
+   /* invalid color */
+   .input-field input[type=password].invalid {
+     border-bottom: 1px solid #DB0000;
+     box-shadow: 0 1px 0 0 #DB0000;
+   }
+   /* icon prefix focus color */
+   .input-field .prefix.active {
+     color: #2196F3;
+   }
+
+/* 17.10.13 comment 관련 css 추가 */
+.comment_layout {
+    padding: 12px 20px 12px 40px;
+    position: relative;
+    font-size: 15px;
+}
+
+.comment_table {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.comment_row {
+    display: table-row;
+}
+
+.comment_cell {
+    display: table-cell;
+}
+
+.comment_avatar {
+    width: 10%;
+    text-align: center;
+}
+
+.comment_content {
+    width: 90%;
+    vertical-align: top;
+}
+
+.comment_subcontent {
+    font-size: 12px;
+    color: #AAB5BC;
+}
+
+.comment_input_content {
+    width: 80%;
+    vertical-align: top;
+    padding-right: 10px;
+}
+
+.comment_btn {
+    text-align: center;
+    vertical-align: center;
+    width: 10%;
+    font-size:15px;
+}
+
+.comment_btn a:hover {
+    opacity: 0.5;
+}
+
+.comment_edit_menu
+{
+    float:left;
+}
+
+.comment_edit_menu > li
+{
+    padding-right: 10px;
+    float:left;
+}
+
+.comment_edit_menu > li > a:hover {
+    opacity: 0.5;
+}

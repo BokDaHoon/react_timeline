@@ -1,0 +1,607 @@
+﻿React.JS
+-------------------------------------------------
+[1강]React.js 소개
+ 1.Virtual DOM
+  - 실제 돔을 처리할경우, 엘레먼트가 많아지면 복잡해짐.
+  - React는 뷰의 노드를 기억하여 어떤 변화가 있었는지 빠르게 캐치해냄,
+  - View는 단순히 그리고 react(virtual dom)에게 이를 갖다줌.
+
+
+-------------------------------------------------
+[2강]React.js 장점과 단점,
+ 1.장점
+  - react는 배우기가 간단하다.
+   # 컨트롤러 등이 나눠져있지않고 컴포넌트의 개념이 있다.
+  - 가비지 컬렉터가 있어 메모리관리와 성능이 뛰어나다.
+  - 서버 & 클라이언트 렌더링
+   #Ex)Ajax를 쓸경우 깜빡거리고 다시 그려짐, 그러나 react를 쓰면 바로바로 그려줌
+   #서버사이드 렌더링
+   #매우간편한 UI component 재사용
+
+ 2.단점
+  - IE8 이하 지원 X (불가능한것이 아닙니다)
+
+
+------------------------------------------------------
+[3강 2-1] CodePen.io (Babel->react->react dom
+ 1. class는 es6에 새롭게 나타난 문법,
+
+[4강 2-2] JSX의 특징
+ 1.JSX는 자바스크립트안에 html 테그를쓸수있따.
+ 2.모든 컴포넌트는 컨테이너 엘레멘트안에 있어야합니다.
+ 3.jsx안에서 java script를 쓰려면 {} 안에 넣으면됩니다.
+
+[5강 2-3] props: Component 내부의 Immutable Data
+  1.JSX 내부에 {this.props.propsName}
+  2.컴포넌트를 사용할 때, <> 괄호안에 propsName = "value"
+  3.this.props.children은 기본적으로 갖고있는 props로서, <Cpnt> 여기에있는값이 들어간다.
+
+[6강 2-4] State
+  1.유동적인 데이터
+  2.JSX 내부에 {this.state.stateName}
+  3.초기값 설정이 필수, 생성자에서 this.state={} 으로 설정
+  4.값을 수정 할 때에는 this.setState({....}),렌더링 된다음엔(생성자에서 못수정)
+  this.state = 로 절대 사용하지 말것(만약 이런식으로 사용하면 바뀐 부분만 업데이트무시)
+
+[7강 2-5] 컴포넌트 맵핑(비슷한구조 여러개 찍는법)
+  1.inAngular 앵귤러만의 문법을 배워야되고, 자꾸까먹게됨
+  2.JavaScript - Map
+  3.Map() 메소드는 파라미터로 전달된 함수를 통하여 배열내의 각 요소를 처리해서 그결과로 새로운 배열생성
+  4.메소드의 사용문법은= arr.map(콜백함수,args);
+  5.함수를 정의할때 사용하는 arrow function (람다식처럼 생김)
+	  let one = a=> console.log(a);
+	  let two = (a,b) => console.log(a,b)
+	  let three = (c,d) => {
+	   console.log(c);
+	   console.log(d);
+	  }
+	  let four = () =>{
+	   console.log(hi)
+	  }
+	이런식으로 쓰면 된다.
+    *참고:하드코딩, 반복되는 내용을 직접 작성하겠다.
+ ------------------------------------------------------------------
+[8강 3-1] GoodBye, CodePen
+	Atom package react by orktes and jshint by sindresorhus 설치
+	apm link "C:\Source\Atom\activate-power-mode-0.4.1"
+
+
+[9강 3-2]
+ 1.npm install -g webpack webpack-dev-server
+  #webpack : 브라우저 위에서 import(require)를 할 수 있게 해주고 자바스크립트 파일들을 하나로 합쳐줍니다.
+ 2.webpack-dev-server : 별도의 서버를 구축하지 않고도 statick 파일을 다루는 웹서버를 열 수 있으며 hot loader를 통하여 코드가 수정될때마다 자동으로 리로드 되게 할 수있습니다.
+ 3.프로젝트 진행 순서
+  - npm init
+  - npm install --save react react-dom
+  - npm install --save-dev react-hot-loader webpack webpack-dev-server
+  - npm install --save-dev babel-core babel-loader babel-preset-es2015 babel-preset-react
+
+[11강 3-3]
+ react hot loader 적용 (1.화면 전체가 재그려짐. 2.바꿔진부분만 그려지긴했으나, local state가 유지되지 않았다. 3.reduce 개발자가만든 hot-loader를 webpack에 적용해야함)
+	 1.index.js 에서 if(module.hot) code를 지워준다.
+	 2.webpack.config.js에 들어가서 loader에 babel을 loaders로 바꿔주고, 쿼리 코드 및 react hot loader를 추가
+----------------------------------------------------------
+12강
+[4-1] Contact 검색기능 구현(주소록 플젝)
+ 1.리액트 핫로더는 react가 리로딩될떄, state를 파괴하지 않고 유지시켜준다고 했죠?, react component가  부작용으로 re-loader될 떄, constructor 는 재실행 하지 않음.
+ F5로 새로고침을 해주어야해요
+ 2.임의 함수를 만들때는 this와 바인드를 해주어야 합니다.
+ 3.자바스크립트 함수 filter : 파라미터로 함수를 전해주어서, 해당하는 함수가 만족하는 값만골라서, 새로운 배열을 만들어줍니다.
+
+ [4-2] onClick 기능 만들기,
+ 1.component에서 onClick 속성이 먹히지 않습니다
+ 2.이런 이벤트는 컴포넌트에는 적용이안되고 네이티브 돔에만 적용됩니다.
+ 3.이런경우에는 propsㄹ 가게됩니다.
+
+ [4-3] state 내부 배열처리..
+  1.state에 대하여 배울때, 데이터를 직접 처리하면안되고 무조건 setState를 처리해야 햇던거 기억나시죠? 그렇다면 배열처리는 어떻게?
+  2.자바 내부함수의 push를 처리하면 안도비니다.
+  3.대신 concat 함수를 쓰면됩니다. *immutability Helper 함수도 존재합니다(라이브러리 필요)
+   - npm install -save react-addons-update
+   - import update from 'react-addons-update'
+   - this.setState({
+	list:update(
+		this.state.list,
+		{
+			$push:[newObj1,newObj2]
+
+	or //원소제거
+		this.setState({
+			list:update(
+				this.state.list,
+				{
+					$splice:[[index,1]]
+
+
+	or //원소 수정
+		this.setState({
+			list:update(
+				this.state.list,
+				{
+					[index]:{
+						field:{$set:"value"},
+						filed2:{$set:"value2"}
+
+	- spread 연산자, npm install --save babel-preset-stage-0
+	->presets 'stage-0'
+	array=[1,2,3,4,5]
+	changed = [...array,6] //=[1,2,3,4,5,6]
+
+[4-7]엔터를 눌러도 되고 싶게하고싶은데 한번 추가를 해보겠습니다.
+ 1.메소드를 바인딩해줍니다.
+ 2.그다음 함수 정의 해줍니다.(어떤객체를 파라미터로 받을지 생각)
+ 3.그다음에 컴포넌트의 태그속성에 연결을 해줍니다.
+
+ #추가기능 2 Create를 하고나서, 포커스를 Name에 주고싶어요. 일반 Dom 이라면
+  document.getbyName("name").focus(); 처럼 햇죠, 하지만 react 에선 ref를 써요
+ #ref 접근방법
+  1.name에 포커스를 주고싶으니 name에 ref를 줘요(콜백펑션 만들기)
+    - ref = {(ref) => {this.nameInput = ref}} 속성값에 이런식으로
+	(deprecated->더이상 사용돼지 않을, outdated(구식의))
+  *유의:constructor와 render함수 내부에서는 ref에 접근할 수 없습니다.
+
+[4-8]Component LifeCycle
+ 1.컴포넌트 라이프사이클에는 총 7개가 있습니다.
+
+[4-9] Html5 LocalStorage
+(쿠키와 비슷한 개념이다.) 쿠키는 4kb가 최대이지만 2.5mb~5mb 까지 저장가능(서버로 전송x)
+	1.constructor
+	 - 생성자 메소드로서 컴포넌트가 처음 만들어 질 때 실행됩니다. 이 메소드에서 기본 state 를 정할 수 있습니다.
+	2.componentWillMount
+	 - 컴포넌트가 DOM 위에 만들어지기 전에 실행됩니다.
+	3.render
+	 -컴포넌트 렌더링을 담당합니다.
+	4.componentDidMount
+	-컴포넌트가 만들어지고 첫 렌더링을 다 마친 후 실행되는 메소드입니다.
+	 이 안에서 다른 JavaScript 프레임워크를 연동하거나,
+	 setTimeout, setInterval 및 AJAX 처리 등을 넣습니다.
+	5.componentWillReceiveProps
+	-컴포넌트가 prop 을 새로 받았을 때 실행됩니다.
+	prop 에 따라 state 를 업데이트 해야 할 때 사용하면 유용합니다.
+	이 안에서 this.setState() 를 해도 추가적으로 렌더링하지 않습니다.
+	6.shouldComponentUpdate
+	- prop 혹은 state 가 변경 되었을 때, 리렌더링을 할지 말지 정하는 메소드입니다.
+	위 예제에선 무조건 true 를 반환 하도록 하였지만, 실제로 사용 할 떄는 필요한 비교를 하고 값을 반환하도록 하시길 바랍니다.
+	예: return nextProps.id !== this.props.id;
+	JSON.stringify() 를 쓰면 여러 field 를 편하게 비교 할 수 있답니다.
+	7.componentWillUpdate
+	- 컴포넌트가 업데이트 되기 전에 실행됩니다.
+	이 메소드 안에서는 this.setState() 를 사용하지 마세요 – 무한루프에 빠져들게 됩니다.
+	8.componentDidUpdate
+	- 컴포넌트가 리렌더링을 마친 후 실행됩니다.
+	9.componentWillUnmount
+	- 컴포넌트가 DOM 에서 사라진 후 실행되는 메소드입니다.
+-------------------------------------------------------------------------------
+[5-1] Redux: 배경지식
+ 1.소파와 테이블이 있다고 가정해보세요, 근데 소파와 테이블을 바꾸고싶어요.
+  그래서 일꾼 2명을 고용합니다. 길동 길순이에요. 길동은 소파, 길순이는 테이블을 책임.
+  당신은 가구를 옮기면서 부딪히지 않도록 지시를해요.
+
+  쇼파를 왼쪽으로뺴고 테이블을 위로 옮기고 다시 쇼파를 아래로옮겨요,
+  이게 mvc패턴이에요.
+
+  여러분이 알라딘이 있다고 가정해요, 지니는 길동길순이가 아니라, 방을 새로만들어서 바꿔버려요.
+
+  *그래서 Redux가 뭔데?? (flux 아키텍처를 활용하는 라이브러리입니다.)
+   -flux?? : 일종의 추상적인 개념입니다. 이 개념을 구현한게 redux입니다.
+   mvc 아키텍쳐는 작은 규모에선 잘동작해요,
+   그러나 큰규모에서는 모델과 뷰의 갯수가 늘어나면서 정말복잡해져요
+
+  페이스북엔 굉장히 대화창이 많죠?? 대화를 안읽엇는데 읽음표시가 되는 버그가 있었어요
+  그래서 face북에서는 mvc를 버리고 다른아키텍쳐 flux를 채택했어요.
+
+  Action->Dispatcher->Store->View 순으로 흘러가요 view에서는 action으로 가서 dispacther로 가여.
+
+  -Action : 액션은 어떤걸 업데이트 해야할지 정보를 갖다줍니다. 디스패처가 알아들을 수있게합니다
+
+  -Dispatcher : 마치 교환원 같아요, 그리고 동기적으로 일을 처리해요
+
+  -Store는 정부관료와 같아요, 모든상태와 관련된 로직을 갖고있어요
+
+  -View : 는 발표자에요, 애플리케이션 내부에대해선 알지만, 받은데이터를 사람들이 잘 이해할 수있는 포맷(HTML)로 마들어놰요
+
+  1.스토어는 디스패처한테 어떤 액션이 들어오면 나한테 말을해줘 라고함
+  2.뷰는 스토어한테 최신상태르 묻고 스토어는 최신상태를 전댈해줘요
+  3.그다음 뷰는 스토어한테 다시 상태가있으면 알려달라고 말해줘요
+  4.뷰는 액션생성자에게 액션을 준비하라고 말해여.(글쓰기,버튼클릭등)
+  5.액션생성자는 액션을 포맷에 맞게 만든뒤 디스패처에 넘겨요.
+  6.디스패처는 받은순서에 따라서 스토어에 말해줘요
+  7.스토어는 값이 바뀌면 말해주고 갖다줘요
+
+[5-2] Redux
+ Flux의 구현체 입니다. Face Book 에서도 굉장한 찬사를 받았습니다.
+ -각 노드들은 Component 입니다. 각 컴포넌트들은 데이터를 스토어에 담고 빨간 화살표는 Dispatch를 의미합니다. 주황 화살표는 subscribe(컴포넌트의 변화입니다.)
+
+ 하나, Redux는 어플리케이션의 state를 위해 단 한개의 sotre를 사용합니다.
+ Flux와의 주요차이입니다. Flux는 여러개의 store를 사용합니다.
+
+ 둘, State is Read-Only.
+  어플리케이션에서 store의 state를 직접 변경 할 수없습니다 state를 변경하기 위해선 무조건 action 이 dispatch 되어야합니다.
+
+ 셋, Action 객체를 처리하는 함수를 reducer라고 부릅니다. reducer는 정보를 받아서 상태를 어떻게 업데이트 할지 정의합니다.
+
+ reducer는 순수함수로 작성되어야 합니다.
+ 즉 네트워크 및 데이터베이스 접근x, 인수 변경x 같은인수로 실행된 함수는 언제나 같은 결과를 반혼.
+ 순수하지 않은 Api 사용 불가(Date.now(),Math.random() 등)
+
+ * Cartoon 설명서
+ Redux는 Dispatcher가 없고 단하나의 store만 존재합니다
+ 리듀서(변화를 일으키는 함수)
+
+ ex)게시판 게시글,덧글,ui state 리듀서가 따로따로 존재한다.
+    -새로운 덧글을 읽는 행동을 했다, 덧글리듀서가 이 행위를 처리한다.
+	-리듀서는 복사에 지나치게 열정적인 직원과 같다. 예전상태는 변경하지 않고, 새로운 복사본을 만든 후 거기에다가 모든 변경사항을 적용한다.
+
+	영민한 컴포넌트 vs 우직한 컴포넌트
+	contact componenet :똑똑한 컴포넌트 액션처리를 책임진다.
+	contact component : 컨택트 크리에이트다.
+
+ 뷰레이어 바인딩
+ - 뷰레이어 바인딩은 It부서와 같다. 기술적인 세부사항을 처리해서 세부사항에 신경쓰지 않아도 된다.
+
+ Root Component
+ -루트컴포넌트는 ceo와 같다. 모든 팀이 일을하도록 관리하는 임무를 갖고있다.
+  전반적 설정을 하고 설정을 하면 딱히 하는일이 없다.
+
+[5-3]Redux Project 준비하기 | creat-react-app
+1.npm install -g create-react-app
+2.creat-react-app [project]
+3.npm install --save redux react-redux
+4.package ESLint 깔고, react에 setting - enable all js file 선택
+5. rcc6을 하면 틀을만들어줌 (snipet) (직접 만드는법은 setting -> snippets.cson을 바꿔주면됨)
+6.snippet file: https://gist.github.com/velopert/8f22cf0830e65f6de8ae99808c5b92f5
+
+ #무슨 프로젝트 만들껀가?
+  - 숫자 카운트 버튼1,2,3 : 버튼 증가 감소 배경화면 색상 랜덤
+  - value.js(멍청이) control.js(멍청이) counter.js(부모 Smart)
+
+#snippet 변경
+ import PropTypes from 'prop-types';
+ import React, { Component } from 'react';
+
+[5-5] Redux : Action
+1.값을 1증가시키기 (increment)
+2.감소시키기(decrement)
+3.색을 랜덤하게(Set_color)
+
+#action 객체가 필수로 가져야 할것 type
+
+[5-6] REDUCER
+1.변화를 일으키는 함수
+2.이 함수는 순수해야한다 (비동기 작업 x(http 요청같은), 인수변경 x , 동일한 인수 = 동일한 결과)
+3.이전상태와 액션상태를 받아 다음상태를 반환하도록
+(이전상태를 변경하는게 아니라 새로운 상태를 반환하는것)
+기존상태를 복사하고 변화를 준 다음에 반환(복사 중독자)
+
+import * as types from '../actions/ActionTypes'; //types 안에 모든 상수가 불러져옴
+
+*만약 객체의 멤버가 여러개일때 새로운 객체를 생성해서 반환하면 다른 멤버가 날라감.
+이럴떈 어떻게 해야할까?(hint:기존의 객체를 복사하여 보낸다.)
+4-3에서 배운 immutability helper나 spread 문법을 사용하자
+
+[5-7] Store
+ 1. store 는 어플리케이션의 현재상태를 지니고 있음.
+ 2. (1)createStore를 리덕스에서 불러옴 그리고 만든 리듀서를 불러옴.
+ 3.스토어가 하는일
+  -dispatch(ation) : 보낸다. 액션을 리듀서로 보낸다는 것. 새상태를 보내면 현상태에서 갈아끼움
+  -getState():현재 상태반환
+  -subscribe(listener): 상태가 바뀔떄마다 실행할 함수를 등록한다. listener가 콜백함수다.(상태가 바뀔때마다 쓸)
+  -replaceReducer(nextReducer) : 보통 사용될 일이 흔하지않음
+
+  # spread 연산자 사용하려면, npm install --save babel-preset-stage-0'
+
+  형태의 변화가 있을때마다 특정함수를 실행시켜 볼꼐요, Subscribe를 실행시키는겁니다.
+
+  # 앞으로 컴포넌트에서 리덕트 함수를 사용하고 써서 할텐데요. 그렇게하려면 app컴포넌트의 스토어를 프롭스를 전달해서 하위컴포넌트에섯 사용 하는 방법도 있는데, 상당히 구조가 복잡해집니다. react에서 redux를 더편안하게 쓰려면 react-reudx라는 바인딩 도구를쓰면됩니다.
+
+[5-8] react 리덕스를 알아봅시다.
+ #카툰안내서에서 뷰레이어 바인더는 IT부서와 같다고 했죠?
+  그럼 어떻게 사용할까요?
+  1.Provider component
+   <Provider store={store}
+	<app/>
+   <Provider/>
+
+  2.connect([options])
+   컴포넌트를 REDUX에 연결하는 함수를 반환합니다.
+   ex)coonect()(Counter)
+    -store에 연결 된 새로운 컴포넌트 클래스가 반환됨, 옵션이 없음 this.props.store로 접근을 할 수있습니다.
+
+-----------------------------------------------------------------------------
+[6-1]BackEnd
+[6-2]미들웨어 만들어보기
+           > http 요청 > 미들웨어 > 라우트작업
+클라이언트 < http 응답
+
+ #npm install --save morgan body-parser
+  morgan : 로깅 미들웨어
+  body-parser: Json 형태의파싱
+
+ #http 요청이 왔을때 증간에서 가로채 다른 기능을넣는것
+  npm repo morgan
+ #node 쓸때 껏다 켯다하는거 짜증낫져?
+  npm install -g nodemon
+ #main.js 정적 파일 제공
+  app.use('/',express.static('public');
+
+----------------------------------------------newfeed 만들기 -------------------------------------
+[session1]
+#웹팩 및 global edpendency 설치
+npm install -g babel-cli nodemon cross-env
+npm install -g webpack webpack-dev-server
+
+abel-cli: 콘솔 환경에서 babel 을 사용 할 수 있게 해줍니다 (ES6 transpile)
+
+nodemon: development 환경에서 파일이 수정 될 때마다 서버를 재시작해줍니다
+
+cross-env: 윈도우 / 리눅스 / OSX 에서 환경변수값을 설정합니다.
+
+devPort와 port가 나눠진 이유는 ?
+
+
+[session2]
+* react time line 게시판 설치 모듈
+	- axios: HTTP 클라이언트
+	- react-addons-update: Immutability Helper (Redux 의 store 값을 변경 할 때 사용됨)
+	- react-router: 클라이언트사이드 라우터
+	- react-timeago: 3 seconds ago, 3 minutes ago 이런식으로 시간을 계산해서 몇분전인지 나타내주는 React 컴포넌트
+	- redux, react-redux; FLUX 구현체, 그리고 뷰 레이어 바인딩
+	- redux-thunk: redux의 action creator에서 함수를 반환 할 수 있게 해주는 redux 미들웨어, 비동기작업을 처리 할 때 사용됩니다
+
+	-npm install --save-dev style-loader css-loader
+	이 로더들을 통하여 프로젝트에서 css 파일을 require (import) 해서 사용 할 수 있습니다.
+
+	-Materializecss (http://materializecss.com/)
+	저희 프로젝트에서는 Materializecss 라는 CSS 프레임워크를 사용 할 거에요.
+	적용하기 쉽고, 예쁘답니다.
+
+* react 프로젝트 구조 이해하기
+	src
+	├── actions
+	│   ├── ActionTypes.js
+	│   ├── authentication.js
+	│   ├── index.js
+	│   ├── memo.js
+	│   └── search.js
+	├── components
+	│   ├── Authentication.js
+	│   ├── Header.js
+	│   ├── index.js
+	│   ├── Memo.js
+	│   ├── MemoList.js
+	│   ├── Search.js
+	│   └── Write.js
+	├── containers
+	│   ├── App.js
+	│   ├── Home.js
+	│   ├── index.js
+	│   ├── Login.js
+	│   ├── Register.js
+	│   └── Wall.js
+	├── index.js
+	└── reducers
+		├── authentication.js
+		├── index.js
+		├── memo.js
+		└── search.js
+	참고로 저희 프로젝트에서 사용하는 디렉토리 구조는 https://github.com/erikras/react-redux-universal-hot-example 에서 사용하는 디렉토리 구조 컨벤션을 따와서 사용하고 있습니다.
+
+	우선, 각 컴포넌트들은 components 에 위치합니다. 그리고, 라우터에서 보여줄 ‘페이지’ 는 container 에 위치하구요. 각 페이지에서 “틀” 로서 사용되는 App.js 또한 container 디렉토리에 위치하구있구요.
+
+	컴포넌트는 계정인증, 헤더, 메모, 메모목록, 쓰기 컴포넌트들이 있습니다.
+
+	컨테이너는 홈, 로그인, 가입, 담벼락 (유저의 메모 목록)이 있구요.
+
+	reducer 는 계정인증 / 메모 / 검색 부분으로 나뉘어져있습니다.
+
+[Session3]
+-Loign component 구현시
+	a 태그 대신에 react-router 의 Link 컴포넌트를 사용했는데요,
+
+	이 컴포넌트는 페이지를 새로 로딩하는것을 막고, 라우트에 보여지는 내용만 변하게 해줍니다
+
+	(만약에 a 태그로 이동을하게된다면 페이지를 처음부터 새로 로딩하게됩니다)
+
+-redux-thunk
+	redux-thunk 는 dispatcher 가 action creator 가 만든 action 객체 외에도, 저희가 만든 함수도 처리 할 수 있게 해줘요.
+
+	비동기 처리를 할 때 사용되는 redux 미들웨어인데요,
+	보통 dispatch() 함수 내부에 들어가는건 action 객체, 혹은 action creator 함수이죠?
+	action-creator 는 그냥 객체만 반환 할 뿐 거기에서 HTTP 요청을 하거나 할수는 없잖아요,
+
+	redux-thunk 를 사용하면, 우리가 함수를 만들어서 (정확히는 함수를 리턴하는 함수에요) 그 함수 내부에서
+	AJAX 요청을 하고, 그 결과값에 따라 다른 action (ajax 가 성공했다던지 실패했다던지..) 을 또 dispatch 할 수 있게 됩니다.
+	이렇게 말로 풀어서 설명을 해드리자면 이해하기가 힘든데 한번 직접 사용해보면 아~ 이런거구나 하실거에요.
+
+-axious
+	axios는 저희가 AJAX 요청을 할 때 사용 할 HTTP Client 입니다
+
+	React 는 뷰만 담당하는 라이브러리이기 때문에, 서버와의 통신을 하려면 이렇게 써드 파티 라이브러리를 사용해야합니다.
+
+	물론, axios 외에도 다른 HTTP 클라이언트를 사용해도 됩니다.
+
+	이 라이브러리를 사용하려면 당연히, import를 해주어야합니다
+
+
+[Step14] Register 순서
+ 1.ActionType에 추가
+ 2.ations-authentication.js 에 상태별 리턴타입정의
+ 3.리듀서 수정하기(authentication.js 파일)
+ 4.컨테이너 수정(regsiter 컴포넌트 redux에 연결)
+ 5.register 컴포넌트에서 handle register구현
+
+//??이건 무슨구문일까 컨테이너 밑에붙는데
+	const mapStateToProps = (state) => {
+		return {
+			status: state.authentication.status
+		};
+	};
+
+	const mapDispatchToProps = (dispatch) => {
+		return {
+			getStatusRequest: () => {
+				return dispatch(getStatusRequest());
+			}
+		};
+	};
+
+	export default connect(mapStateToProps, mapDispatchToProps)(App);
+	//action 에서 끌어와서 getStatusRequest쓴다.
+
+
+[Session4]
+- 모듈 만들때 순서
+	1.action type 만들기
+	2.action creator 만들기
+	3.reducer 만들기
+	4.컴포넌트에서 사용
+
+
+
+======================내나름 공부정리========================
+- props는 컴포넌트에서 사용할때 변하지 않는 데이터.(immutable )
+부모컴포넌트에서 -> 자식으로 갈때 ex)isLoggedIn : reducer->App.js->Hedaer.js 로 props를 사용하고 10개의 컴포넌트를 포함시키는 container 컴ㅍ ㅗ넌트를 사용하는 것이 효율적
+
+특성											props	state
+parent 컴포넌트에 의해 값이 변경 될 수 있는가?	예		아니오
+컴포넌트 내부에서 변경 될 수 있는가?			아니오	예
+
+1.버튼을 누른다 컴포넌트의 함수가 실행되면서 random 숫자가 생성.
+2.this.props.onupdate(value); 라는 props를 바꿔줌
+
+- functional copnent.
+  여러분이 만들 컴포넌트가 라이프사이클 API 도 사용하지 않고, state 도 사용하지 않고, 그냥 props 만 전달해주면 뷰를 렌더링만 해주는 역할이라면 함수형 컴포넌트 형식으로 컴포넌트를 정의가능
+
+	import React from 'react';
+
+	const Hello = (props) => {
+		return (
+			<div>Hello {props.name}</div>
+		);
+	}
+  위와 같은식으로.
+
+[redux]
+	#mvc 패턴
+	action -> controller -> model <-> view  모델과 뷰가많아지면 찾아내기힘듬
+	#flux 패턴
+	action->dispathcer->store->veiw->action (dispacther가 작업이 중첩되지 않게 해줍니다.)
+
+	1.Single Soruce of Truth(Store는 단 한개이다)
+		store: React.js 프로젝트에서 사용하는 모든 동적 데이터들을 담아두는 곳 입니다.
+		action: 어떤 변화가 일어나야 할 지 나타내는 객체입니다.
+		reducer: action 객체를 받았을 때, 데이터를 어떻게 바꿀지 처리할지 정의하는 객체입니다.
+	2.read only
+		어플리케이션에서 state를 직접 변경 할 수는 없다는 의미입니다. state 를 변경하기 위해서는, action 이 dispatch 되어야 합니다. (dispatch 는 ‘보낸다’는 뜻 입니다)  action 은, 어떤 변화가 일어나야 할 지 알려주는 객체입니다.
+	3.Changes are made with Pure Functions (변화는 순수 함수로 만들어져야 한다)
+		Redux에선 State를 직접변경하지 않고, action 을 dispatch 하여 상태값을 변경한다고 했죠
+		이과정에서 받아온 action 객체를 처리하는 함수를 reducer라고 부릅니다.
+		action은 어떤변화를 일으켜야할지 알려주는 객체라면, reducer는 그정보를 받고 애플리케이션의 상태를 어떻게 바꿀지 정의합니다.
+
+
+	action -> reducer -> store -> components 작성합니다. 각파일을 분리해서
+
+	#궁금점 Action을 컴포넌트에서 어떻게 연동해줌?
+
+	#connect는 react-redux 의 내장 API 입니다. 함수는 React Component 를 Redux Store에  ‘연결’ 해줍니다. 리턴된 함수에 컴포넌트를 인수로 넣어 실행하면, 기존 컴포넌트를 수정하는게 아니라 새로운 컴포넌트를 return 합니다.
+	mapStateToProps : 통해 함수 내부에서 컴포넌트의 props 값에 접근 할 수 있습니다.
+	mapDispatchToProps: 컴포넌트의 특정 함수형 props 를 실행 했을 때, 개발자가 지정한 action을 dispatch 하도록 설정합니다
+	(dispacth는 보낸다 는 뜻입니다.)
+
+[Redux 연습]
+-actions: 액션타입, 액션생성자 파일이 저장됩니
+-components: 뷰만을 담당하는 presentational 컴포넌트들이 저장됩니다 (dumb)
+			State를 갖지 않고있고, 갖을경우 ui에 관련된 것입니다. 주로 함수형 컴포넌트로 작성됨.
+			리덕스 스토어에는 직접적인 접근권한을 갖지 못합니다.
+-containers: store 에 접근이 닿는 container 컴포넌트들이 저장됩니다 (Smart)
+			프레젠테이션 컴포넌트들과 컨테이너 컴포넌트들을 관리할때 사용됩니다. 리덕스에 직접접근가능합니다.
+-reducers: 스토어의 기본상태와, 상태의 업데이트를 담당하는 리듀서 파일들이 저장됩니다
+-utils: 일부 컴포넌트들에서 공용되는 파일이 저장됩니다.
+
+*이 구조의 장점
+ UI 쪽과 Data 쪽이 분리되어 프로젝트를 이해하기가 쉬워지며, 컴포넌트의 재사용률도 높여줍니다.
+
+
+- 어떤걸 컨테이너로 만들어야할까?
+	페이지
+	리스트
+	헤더
+	사이드바
+	내부의 컴포넌트 때문에 props가 여러 컴포넌트를 거쳐야 하는 경우
+ *오해:컨테이너 컴포넌트라고해서 무조건 내부에 여러개 컴포넌트가 있어야하는건 아닙니다. ItemContainer를 만들어 Item 하나만 관리 할 수 있습니다.
+
+ *[Tip]onContextMenu 는 우클릭을 하여 메뉴가 열리는 이벤트를 의미하는데요.
+  e.preventDefault()를 실행하면 메뉴가 안열립니다.
+
+ *action 은 하나의 객체라고 했었죠? 모든 액션 객체는 type 이라는 값을 지니고 있어야 합니다.
+  만약에 액션과 함께 전달해야 할 값이 있을경우엔 추가해서 만들어주면 되지요.(type은 액션의 이름과 같은존재입니다.)
+  -type 값들을 사용할때마다 쳐주면 관리하기가 조금 힘들어 질 수도있는데요, 상수로 만들어서 사용하면 더 좋습니다.
+
+  *리덕스의 3가지 원칙 중에서 변화는 언제나 순수(Pure) 함수로 이뤄져야 한다는 것, 기억나나요? 더블클릭을 하면 색이 랜덤으로 변하는거지만, 그렇다고 우리가 액션을 RANDOMIZE_COLOR, randomizeColor 이런식으로 만들면 안됩니다. 왜냐구요? 랜덤함수는 실행될때마다 다른 값을 반환하기때문에 순수하지 않거든요.
+
+  [하나의 flux 패턴 만든느 순서]
+  *action 까지 만들었다면 이제 리듀서를 만들 차례입니다. 리듀서는 액션의 type에 따라 변화를 일으키는 함수입니다.
+  1.액션 타입들을 불러온다음에 초기상태를 선언하세요
+  2.리듀서 함수는 state 와 action 을 파라미터로 가지는 함수이며, 그 내부에서 switch 문을 통하여 action.type 에 따라 상태에 다른 변화를 일으키면 됩니다
+   *state 를 직접 수정하면 절대 안되고, 기존 state 값에 덮어쓴 새 상태객체를 만드는 방식으로 해야합니다.
+  3.Store 만들기
+  는 리덕스에서 가장 핵심적인 인스턴스입니다. 이 안에 현재 상태를 내장하고있고, 구독(subscribe)중인 함수들이 상태가 업데이트 될 때 마다 다시 실행되게 해주죠.
+  4.Provider 컴포넌트를 사용하여 리액트 앱에 store 연동하기
+	react-redux 라이브러리에 내장되어있는, 리액트 앱에 store 를 손쉽게 연동 할 수 있도록 도와주는 컴포넌트입니다.
+	이 컴포넌트를 불러온다음에, 연동 할 컴포넌트를 감싸준다음에 Provider 컴포넌트의 props로 store 값을 설정해주면 됩니다.
+  5.아직 공부가 끝나지 않앗어요, 서브 리듀서를 한번 만들어 봅시다.(리듀서를 쪼개서 결합)
+	액션에따라, 갈라놓은후, root reducer에 합쳐봅시다.
+  ***컨테이너에서 store에서 불러오는 state 를 확인하려면, 리듀서의 state 보세요
+
+ 글에 페이지를 로딩할때
+ componentDidMount()에서 memoListRequest 함수를 사용하세요. 실행 후, 콘솔에 결과를 프린트하도록 해보세요.
+
+
+
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+[ES 6 궁금점]
+1.에로우 펑션까진 이해가 되는데 매개변수의 {}이 이해가 안됨
+const func = ({ param1, param2 }) => {
+  //do stuff
+}
+
+const func = o => {
+    var param1 = o.param1;
+    var param2 = o.param2;
+    //do stuff
+}
+
+==매개변수로 오브젝트가 날라왔을때, 오브젝트내의 맴버들을 변수로 받는 것.
+
+
+2.Home Container에 handlepost구현하는 것은- 정의된 리듀서를 실제로 쓴다는걸 의미하나?
+
+-----------------------------------------------------------------------------------------
+[Comment add 추가사항]
+1.계속 axios 를 보내면 respond로 index.html이 오는것이엇다.(get 메소드는 모두 안먹음)
+  main.js에서 app.use(/api,api) 의 순서를 app.get 위에 올려줘야했다.
+
+2.[참고] App->Home->MeMolist->MEMO->COMMNETLIST->comment,coomentWrite 순서로 props 를 보내줬다.
+
+3.You provided a `value` prop to a form field without an `onChange` handler 라고 뜬다
+ input tag에 onChange 없이 value를 대입할 수 없다. default 밸류로 대신하서쓴다.
+
+4.commentPostReuqest is not a function 이라고뜸.
+  그 mapDispatchToProps 로 등록시켰는지 확인해볼것.
+
+5.[질문?]밑에 deafulat props는 거쳐가는 컴포넌트에다가 모두 명시해줘야되나?
+ ex)onCommentPost이란것을 commentWrite에서만 쓰는데,  Home부터 보내준다, 모든 지나가는 컴포넌트에 모두명시?
+
+6.[Trouble] 계속해서 something borken이 뜨는이유
+	mapStateToProps 함수를 활용하여 store에 있는 reducer에 있는 props들을 불러와야한다.
+
+7.현재 계층구조상 Home에서 store접근을 할 수 있다. 리플 post를 감지하면 해당하는 글의 리플만 다시그려줘야하는데, 컴포넌트에서 직접 접근할수없다.
+어떻게하면 특정 id에 해당하는 memo의 comment list만 다시그려줄수있을까? 
+ -> state를 설정해서, post를 날릴경우 set state를 바꾼뒤 store에서 접근해서 state가 update인것만 바꿔준다. 
+ =그렇다면 dumb 컴포넌트에서도 store에 접근을 해도 되는가? https://stackoverflow.com/questions/45269736/how-to-access-the-redux-store-from-deeply-nested-components
+ 
+8.댓글 갱시신관련 해법 => map을 쓸때, key를 무조건 왜 써야하는지 안다면, 쉽게 이해할 수 있다. 이 key와 새로받은데이터의 key와 비교하여 업데이트 하였다.
+
+9.mongo db의 insert뒤에 save와 get 의 속도차이가나서, 새로 추가한 리플을 추가하기전에 리플리스트를 get 하는 문제,
+단순히 save안에서 success 플래그를 보내주면 되는 문제였다.

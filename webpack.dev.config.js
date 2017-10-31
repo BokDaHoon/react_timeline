@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+import 'react-hot-loader/patch';
 
 module.exports = {
 
@@ -39,7 +40,8 @@ module.exports = {
 
 
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin()
     ],
 
     module: {
